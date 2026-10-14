@@ -11,20 +11,22 @@ public class BelegrollenPage extends Base {
 
     private WebDriver driver;
 
-    @FindBy(css = "input-group-append")
+    @FindBy(className = "input-group-append")
     private WebElement incrementButton;
     @FindBy(className = "input-group-prepend")
     private WebElement decrementButton;
-    @FindBy (className = "oe_currency_value")
+    @FindBy (css = "b.oe_price")
     private WebElement priceTag;
     @FindBy (css = "ol.breadcrumb")
     private WebElement productInfo;
     @FindBy(id = "add_to_cart")
     private WebElement addToCartButton;
-    @FindBy(css = "[title*='Add']")
-    private WebElement addButton;
+    @FindBy(xpath = "[title*='Add']")
+    private WebElement increaseButton;
     @FindBy(css = "input.form-control.quantity")
     private WebElement textField;
+    @FindBy(name = "add_qty")
+    private WebElement quantity;
 
     public BelegrollenPage(WebDriver driver) {
         this.driver = driver;
@@ -34,8 +36,9 @@ public class BelegrollenPage extends Base {
 
     public Boolean isPriceCorrect(String price) {
         LogUtil.log("Price is : "+ price);
+        LogUtil.log("Price tag is : "+ priceTag.getText().trim().split(" ")[0]);
         waitUntilElementVisible(addToCartButton);
-        return priceTag.getText().equalsIgnoreCase(price);
+        return priceTag.getText().trim().split(" ")[0].equalsIgnoreCase(price);
     }
 
     public void incrementItem(String number) {
@@ -45,7 +48,13 @@ public class BelegrollenPage extends Base {
     }
 
     public Boolean isAmoutCorrect(String number) {
-        return textField.getText().equalsIgnoreCase(number);
+        String amount = textField.getText();
+        LogUtil.log("amount is : "+ amount);
+        return amount.equals(number);
+    }
+
+    public String getAmout() {
+        return quantity.getText();
     }
 
     public CartPage AddtoChart() {
@@ -55,9 +64,8 @@ public class BelegrollenPage extends Base {
 
     public void incrementAmout(int times){
         for(int i = 0; i < times; i++){
-            waitUntilElementVisible(addButton);
-            LogUtil.log("i is : "+ i);
-            addButton.click();
+            waitUntilElementVisible(increaseButton);
+            increaseButton.click();
         }
     }
 

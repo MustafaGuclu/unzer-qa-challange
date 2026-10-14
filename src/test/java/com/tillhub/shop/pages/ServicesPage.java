@@ -11,8 +11,6 @@ public class ServicesPage extends Base {
 
     @FindBy(css = "h1.s_title_default")
     private WebElement title;
-    @FindBy(css = "a[title='Guest access']")
-    private WebElement text;
 
     public ServicesPage(WebDriver driver){
         PageFactory.initElements(driver, this);

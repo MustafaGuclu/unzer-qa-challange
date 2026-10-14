@@ -1,7 +1,6 @@
 package com.tillhub.shop.pages;
 
 import com.tillhub.shop.base.Base;
-import com.tillhub.shop.utilities.LogUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,20 +23,18 @@ public class CartPage extends Base {
         waitUntilElementVisible(inTotalText);
     }
 
-    public Boolean isTotalCorrect(String inTotal) {
-        LogUtil.log(" inTotalText.getText() : "+  inTotalText.getText());
-
+    public String getTotalAmount() {
         waitUntilElementVisible(inTotalText);
-        return inTotalText.getText().contains(inTotal);
+        return inTotalText.getText().replaceAll("[^0-9,]", "").trim();
     }
 
-    public Boolean isSubtotalCorrect(String subTotal) {
+    public String getSubTotalAmount() {
         waitUntilElementVisible(subtotalText);
-        return subtotalText.getText().contains(subTotal);
+        return subtotalText.getText().replaceAll("[^0-9,]", "").trim();
     }
 
-    public Boolean isTaxCorrect(String tax) {
+    public String getTaxAmount() {
         waitUntilElementVisible(steerText);
-        return steerText.getText().contains(tax);
+        return steerText.getText().replaceAll("[^0-9,]", "").trim();
     }
 }

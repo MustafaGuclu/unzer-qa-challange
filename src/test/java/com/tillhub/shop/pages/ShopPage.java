@@ -2,7 +2,6 @@ package com.tillhub.shop.pages;
 
 import com.tillhub.shop.base.Base;
 import com.tillhub.shop.utilities.LogUtil;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,9 +17,9 @@ public class ShopPage extends Base {
     private WebDriver driver;
     private static final String url = "https://portal.tillhub.com/shop";
 
-    @FindBy(name = "search")
+    @FindBy(className = "search-query")
     private WebElement searchBox;
-    @FindBy(name = "search")
+    @FindBy(className = "input-group-append")
     private WebElement searchButton;
     @FindBy(className = "img-fluid")
     private WebElement logo;
@@ -74,11 +73,6 @@ public class ShopPage extends Base {
         return new ShopPage(driver);
     }
 
-    public boolean hasProduct(String partialTitle) {
-        return driver.findElements(By.xpath("//*[self::a][contains(translate(normalize-space(.)), '" + partialTitle.toLowerCase() + "')]"))
-                .stream().anyMatch(WebElement::isDisplayed);
-    }
-
     public List<WebElement> getSearchResults(){
         return searchResults;
     }
@@ -111,8 +105,6 @@ public class ShopPage extends Base {
     public int searchResultsContainText(String text){
         scrollDown();
         List<WebElement> results = getSearchResults();
-        LogUtil.log("getSearchResults(): " + getSearchResults().toString());
-
         for (int i = 0; i < results.size(); i++) {
             if (results.get(i).getText().contains(text)) {
                 LogUtil.log("i the index is: " + i);
@@ -123,7 +115,6 @@ public class ShopPage extends Base {
     }
 
     public Boolean doSearchResultsContainText(String text) {
-        LogUtil.log("Return is :" + searchResultsContainText(text));
         return searchResultsContainText(text)!=-1;
     }
 
@@ -136,7 +127,7 @@ public class ShopPage extends Base {
             );
         }
         itemImages.get(index).click();
-        LogUtil.log("image index is clicked :" + index);
+        LogUtil.log("image is clicked with index: " + index);
         waitUntilElementVisible(logo);
 
         return new BelegrollenPage(driver);
@@ -145,17 +136,7 @@ public class ShopPage extends Base {
     public CartPage addItemtoCart(String item) {
         int index = searchResultsContainText(item);
         addToChartButtons.get(index).click();
-        LogUtil.log("add to char index is clicked :" + index);
+        LogUtil.log("add to char clicked, index is:" + index);
         return new CartPage(driver);
     }
-
-/*    public BelegrollenPage clickSelectedItem(String text){
-        try {
-            itemImages().get(searchResultsContainText(text)).click();
-            return new BelegrollenPage(driver);
-        }catch (Exception e){
-            LogUtil.errorLog("Can not find item in search results");
-            e.printStackTrace();
-        }
-    }*/
 }
