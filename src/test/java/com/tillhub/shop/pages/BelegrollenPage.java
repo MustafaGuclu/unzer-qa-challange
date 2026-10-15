@@ -1,7 +1,6 @@
 package com.tillhub.shop.pages;
 
 import com.tillhub.shop.base.Base;
-import com.tillhub.shop.utilities.LogUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,8 +24,6 @@ public class BelegrollenPage extends Base {
     private WebElement increaseButton;
     @FindBy(css = "input.form-control.quantity")
     private WebElement textField;
-    @FindBy(name = "add_qty")
-    private WebElement quantity;
 
     public BelegrollenPage(WebDriver driver) {
         this.driver = driver;
@@ -34,11 +31,9 @@ public class BelegrollenPage extends Base {
         waitUntilPageIsLoaded(driver);
     }
 
-    public Boolean isPriceCorrect(String price) {
-        LogUtil.log("Price is : "+ price);
-        LogUtil.log("Price tag is : "+ priceTag.getText().trim().split(" ")[0]);
+    public String getPrice() {
         waitUntilElementVisible(addToCartButton);
-        return priceTag.getText().trim().split(" ")[0].equalsIgnoreCase(price);
+        return priceTag.getText().trim().split(" ")[0];
     }
 
     public void incrementItem(String number) {

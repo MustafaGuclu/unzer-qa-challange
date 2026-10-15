@@ -2,6 +2,7 @@ package com.tillhub.shop.pages;
 
 import com.tillhub.shop.base.Base;
 import com.tillhub.shop.utilities.LogUtil;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,16 +30,16 @@ public class ShopPage extends Base {
     private List<WebElement> searchResults;
     @FindBy(xpath = "//a[@href='/shop/category/services-5']")
     private WebElement servicesTab;
-    @FindBy(className = "o_wsale_product_btn")
-    private List<WebElement> addToChartButtons;
     @FindBy(xpath = "//a[@href='/shop/category/hardware-4']")
     private WebElement hardwareTab;
     @FindBy(xpath = "//a[@href='/shop/cart']")
     private WebElement cartTab;
     @FindBy(className = "o_wsale_products_item_title")
     private List<WebElement> itemTitles;
-    @FindBy(className = "oe_product_image")
-    private List<WebElement> itemImages;
+    private final By itemImage = By.className("oe_product_image");
+    private final By addToChartButton = By.className("o_wsale_product_btn");
+
+
     @FindBy(className = "s_title_default")
     private WebElement title;
 
@@ -96,39 +97,21 @@ public class ShopPage extends Base {
         return title.getText();
     }
 
-    public int searchResultsContainText(String text){
+    public WebElement returnSearchResultsContainText(String text){
         scrollDown();
         List<WebElement> results = getSearchResults();
-        for (int i = 0; i < results.size(); i++) {
-            if (results.get(i).getText().contains(text)) {
-                LogUtil.log("i the index is: " + i);
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public Boolean doSearchResultsContainText(String text) {
-        return searchResultsContainText(text)!=-1;
+        return results.stream().filter(element -> element.getText().contains(text)).
+                findFirst().orElseThrow(NoSuchElementException::new);
     }
 
     public BelegrollenPage clickSelectedItem(String text) {
-        int index = searchResultsContainText(text);
-        List<WebElement> results = getSearchResults();
-        if (index < 0) {
-            throw new NoSuchElementException(
-                    "Could not find item in search results: " + text
-            );
-        }
-        itemImages.get(index).click();
+        returnSearchResultsContainText(text).findElement(itemImage).click();
         waitUntilElementVisible(logo);
         return new BelegrollenPage(driver);
     }
 
     public CartPage addItemtoCart(String item) {
-        int index = searchResultsContainText(item);
-        addToChartButtons.get(index).click();
-        LogUtil.log("add to char clicked, index is:" + index);
+        returnSearchResultsContainText(item).findElement(addToChartButton).click();
         return new CartPage(driver);
     }
 }

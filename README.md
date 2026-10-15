@@ -1,4 +1,4 @@
-# Tillhub shop
+# Tillhub Shop
 
 ## Introduction
 
@@ -13,9 +13,9 @@ Automated scenario steps are;
 | Step | Action | Expected result |
 |---|---|---|
 | 1 | User opens “https://portal.tillhub.com/shop" website  | Tillhub shop page should be successfully opened. Logo should be displayed |
-| 2 | User searches for keyword "Rollen" | Results results list should contain desired item "Belegrollen POS Go & Unzer”|
-| 3 | User opens item "Belegrollen POS Go & Unzer" | Unit price should be 34,90 Euro|
-| 4 | User adds 5 items to the Cart| Training product is added. |
+| 2 | User searches for keyword "Rollen" | Search results list should contain desired item "Belegrollen POS Go & Unzer”|
+| 3 | User opens item "Belegrollen POS Go & Unzer" | Unit price should be "34,90" Euro|
+| 4 | User adds 5 items to the Cart| 5 items should be added |
 | 5 | User switches to “Services" tab | Check page title is “Services" |
 | 6 | User  adds item "Schulung der Tillhub Kasse" to the cart |  |
 | 7 | User switches to “Hardware" tab | Check page title is “Hardware" |
@@ -52,3 +52,5 @@ On default it runs with Chrome but other browsers can be selected for example fr
 - Some custom logs are added to logs folder in html format
 
 - Ideally Chrome, Firefox, Opera, Safari, Edge and Internet Explorer browsers are supported but I tested with only Chrome browser. I don’t guarantee that tests successfully run with all other browsers.
+
+- I added locators in a way that they do not change on different languages but while searching a product in different language, i don't guarantee product can be found. I tested on English only.

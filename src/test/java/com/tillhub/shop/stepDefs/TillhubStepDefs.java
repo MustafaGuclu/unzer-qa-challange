@@ -29,7 +29,7 @@ public class TillhubStepDefs extends Base {
 
     @Then("^Search results list contains desired item (.*)$")
     public void searchResultsPageShouldHaveZeroResults(String text){
-        Assertions.assertThat(shopPage.doSearchResultsContainText(text)).isTrue();
+        Assertions.assertThat(shopPage.returnSearchResultsContainText(text)).isNotNull();
     }
 
     @When("^I open item (.*)$")
@@ -40,7 +40,7 @@ public class TillhubStepDefs extends Base {
 
     @Then("^I see unit price is (.*) €$")
     public void iSeeUnitPriceIs€(String price) {
-        Assertions.assertThat(belegrollenPage.isPriceCorrect(price)).isTrue();
+        Assertions.assertThat(belegrollenPage.getPrice()).isEqualTo(price);
     }
 
     @When("^I add quantity (.*) to the cart$")
