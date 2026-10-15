@@ -2,7 +2,6 @@ package com.tillhub.shop.stepDefs;
 
 import com.tillhub.shop.base.Base;
 import com.tillhub.shop.pages.*;
-import com.tillhub.shop.utilities.LogUtil;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -46,10 +45,8 @@ public class TillhubStepDefs extends Base {
 
     @When("^I add quantity (.*) to the cart$")
     public void iAddQuantitiyToTheCart(String number) {
-    //    LogUtil.log("Adding quantitiy to the cart " + number);
         belegrollenPage.incrementItem(number);
-    //    Assertions.assertThat(belegrollenPage.isAmoutCorrect(number)).isTrue();
-      //  Assertions.assertThat(belegrollenPage.getAmout()).isEqualTo(number);
+        Assertions.assertThat(belegrollenPage.getAmout()).isEqualTo(number);
         cartPage = belegrollenPage.AddtoChart();
     }
 
@@ -61,7 +58,7 @@ public class TillhubStepDefs extends Base {
     @And("^I switch to (.*) tab$")
     public void iSwitchToTab(String tab) {
         shopPage.switchToTab(tab);
-        Assertions.assertThat(shopPage.checkPageisCorrect(tab)).isTrue();
+        Assertions.assertThat(shopPage.getPageTitle()).as("Page title should match").isEqualTo(tab);
     }
 
     @And("^I add item (.*) to the cart$")
@@ -73,6 +70,6 @@ public class TillhubStepDefs extends Base {
     public void iValidateSubtotalTaxTotalEuros(String subtotal, String tax, String total) {
         Assertions.assertThat(cartPage.getSubTotalAmount()).isEqualTo(subtotal);
         Assertions.assertThat(cartPage.getTaxAmount()).isEqualTo(tax);
-        Assertions.assertThat(cartPage.getTotalAmount()).isEqualTo(total);
+        Assertions.assertThat(cartPage.getTotalAmount()).as("Amount should be correct").isEqualTo(total);
     }
 }

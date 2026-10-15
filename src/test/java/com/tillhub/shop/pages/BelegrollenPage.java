@@ -42,22 +42,18 @@ public class BelegrollenPage extends Base {
     }
 
     public void incrementItem(String number) {
+        waitUntilElementVisible(textField);
         textField.clear();
         textField.click();
         textField.sendKeys(number);
     }
 
-    public Boolean isAmoutCorrect(String number) {
-        String amount = textField.getText();
-        LogUtil.log("amount is : "+ amount);
-        return amount.equals(number);
-    }
-
     public String getAmout() {
-        return quantity.getText();
+        return textField.getAttribute("value");
     }
 
     public CartPage AddtoChart() {
+        waitUntilElementVisible(addToCartButton);
         addToCartButton.click();
         return new CartPage(driver);
     }

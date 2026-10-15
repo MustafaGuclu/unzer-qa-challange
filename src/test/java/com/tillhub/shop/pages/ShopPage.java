@@ -27,8 +27,6 @@ public class ShopPage extends Base {
     private WebElement declineButton;
     @FindBy(className = "oe_product_cart")
     private List<WebElement> searchResults;
-    @FindBy(className = "a.nav-link")
-    private List<WebElement> topMenu;
     @FindBy(xpath = "//a[@href='/shop/category/services-5']")
     private WebElement servicesTab;
     @FindBy(className = "o_wsale_product_btn")
@@ -91,15 +89,11 @@ public class ShopPage extends Base {
         return new CartPage(driver);
     }
 
-    public List<WebElement> getTopMenu(){
-        return topMenu;
-
-    }
-    public boolean checkPageisCorrect(String expectedTitle){
+    public String getPageTitle(){
         waitUntilElementVisible(logo);
         scrollDown();
         title.isDisplayed();
-        return title.getText().equals(expectedTitle);
+        return title.getText();
     }
 
     public int searchResultsContainText(String text){
@@ -127,9 +121,7 @@ public class ShopPage extends Base {
             );
         }
         itemImages.get(index).click();
-        LogUtil.log("image is clicked with index: " + index);
         waitUntilElementVisible(logo);
-
         return new BelegrollenPage(driver);
     }
 
