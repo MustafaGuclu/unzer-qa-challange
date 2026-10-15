@@ -16,10 +16,4 @@ public class ServicesPage extends Base {
         PageFactory.initElements(driver, this);
         waitUntilElementVisible(title);
     }
-
-    public boolean checkTitleIsCorrect(String expectedTitle){
-        waitUntilElementVisible(title);
-        return Objects.equals(expectedTitle, title.getText());
-    }
-
 }

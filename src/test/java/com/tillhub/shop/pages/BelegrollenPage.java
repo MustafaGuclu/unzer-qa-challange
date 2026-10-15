@@ -20,8 +20,6 @@ public class BelegrollenPage extends Base {
     private WebElement productInfo;
     @FindBy(id = "add_to_cart")
     private WebElement addToCartButton;
-    @FindBy(xpath = "[title*='Add']")
-    private WebElement increaseButton;
     @FindBy(css = "input.form-control.quantity")
     private WebElement textField;
 
@@ -51,13 +49,6 @@ public class BelegrollenPage extends Base {
         waitUntilElementVisible(addToCartButton);
         addToCartButton.click();
         return new CartPage(driver);
-    }
-
-    public void incrementAmout(int times){
-        for(int i = 0; i < times; i++){
-            waitUntilElementVisible(increaseButton);
-            increaseButton.click();
-        }
     }
 
     public WebElement getProductInfo(){

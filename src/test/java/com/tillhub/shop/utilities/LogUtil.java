@@ -36,6 +36,7 @@ public class LogUtil {
         log.info(scenarioName + " ended");
         log.info("Closing browser at the end of the test");
     }
+
     public static void log(String text) {
         log.info(text);
     }

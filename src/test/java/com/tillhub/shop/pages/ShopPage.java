@@ -34,14 +34,10 @@ public class ShopPage extends Base {
     private WebElement hardwareTab;
     @FindBy(xpath = "//a[@href='/shop/cart']")
     private WebElement cartTab;
-    @FindBy(className = "o_wsale_products_item_title")
-    private List<WebElement> itemTitles;
-    private final By itemImage = By.className("oe_product_image");
-    private final By addToChartButton = By.className("o_wsale_product_btn");
-
-
     @FindBy(className = "s_title_default")
     private WebElement title;
+    private final By itemImage = By.className("oe_product_image");
+    private final By addToChartButton = By.className("o_wsale_product_btn");
 
     public ShopPage(WebDriver driver) {
         this.driver = driver;

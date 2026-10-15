@@ -32,6 +32,7 @@ public class ScreenShot {
             e.printStackTrace();
         }
     }
+
     private String instantTime() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH.mm.ss");
         LocalDateTime localDateTime = LocalDateTime.now();
